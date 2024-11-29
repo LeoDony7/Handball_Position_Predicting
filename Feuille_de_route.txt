@@ -1,0 +1,15 @@
+Feuille de route du projet :
+
+Chacun prend le temps de faire un petit résumé de ce qu'il a fait à chaque fois qu'il travaille sur le projet
+- fichiers modifiés (préciser les modifications dans les grandes lignes et ce que font les bouts de code modifiés)
+- problèmes rencontrés et non résolus
+- 
+
+Léo 29/11 :
+
+1/ Ajout du fichier Scrapping_complet qui permet de scrapper les données de match des joueurs.
+Le code est annoté, si vous voulez le lancer faites bien attention à modifier le chemin vers lequel télécharger les données puis svp remetter le chemin que j'avais écrit
+Normalement on a plus besoin de lancer ce fichier puisque j'ai déjà uploader les données correspondantes sur le github
+
+2/ 
+

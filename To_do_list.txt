@@ -1,0 +1,15 @@
+En cours :
+-Scrapping (presque fini)
+
+A faire :
+- Nettoyage données (renommage variables, gérer les données manquantes, enlever unités, légendes des tables, création nouvelles tables avec seulement les variables intéressantes)
+- Statistiques descriptives + présentation des données + visualisation (faire des graphiques, etc... ce sera valorisé dans la notation)
+- Analyse : Prédiction poste des joueurs en fonction des caractéristiques physiques (clustering) + écart de performances en fonction des caractéristiques physiques 
+- Rapport du projet
+- Annotation détaillée du code
+
+Bonus (à voir selon le temps disponible) :
+- Optimisation du code 
+- Tests (importants!)
+- Visualisation des résultats
+- Analyses supplémentaires (qui a des idées ?)
