@@ -1,4 +1,4 @@
-,0,1,2,3,4,5,6,7
+,poste,Nationalité :,Né le :,Age :,Taille :,Poids :,Club actuel :,Dernière saison
 Kamil Syprzak,Pivot,Pologne,27/07/1991,33 ans,207 cm,117 kgs,Paris,
 Tom Pelayo,Arrière Droit,France,23/02/1997,27 ans,189 cm,95 kgs,Dunkerque,
 Gabriel Loesch,Ailier Droit,France,12/07/1995,29 ans,182 cm,73 kgs,Aix,
@@ -142,8 +142,8 @@ Marc Poletti,Pivot,France,06/06/1985,39 ans,192 cm,102 kgs,Dijon,2023 / 2024
 Maxime Ogando,Ailier Gauche,France,02/04/1999,25 ans,183 cm,75 kgs,Limoges,
 Julien Rebichon,Ailier Gauche,France,18/10/1988,36 ans,179 cm,79 kgs,Nîmes,
 Jason Muel,Pivot,France,07/03/2000,24 ans,197 cm,105 kgs,Créteil,
-Dylan Garain,Arrière Gauche,France,22/08/1996,28 ans,195 cm,100 kgs,Ivry,2023 / 2024
 Arthur Anquetil,Ailier Gauche,France,23/07/1995,29 ans,182 cm,80 kgs,Chambéry,
+Dylan Garain,Arrière Gauche,France,22/08/1996,28 ans,195 cm,100 kgs,Ivry,2023 / 2024
 Mathieu Grebille,Ailier Gauche,France,06/10/1991,33 ans,198 cm,97 kgs,Paris,
 O'brian Nyateu,Demi Centre,France,07/11/1992,32 ans,188 cm,99 kgs,Dunkerque,
 Iosu Goni,Arrière Gauche,Espagne,01/04/1990,34 ans,193 cm,103 kgs,Chambéry,
@@ -158,13 +158,13 @@ Eliott Desblancs,Demi Centre,France,18/08/2004,20 ans,184 cm,72 kgs,Aix,
 Romain Briffe,Demi Centre,France,22/01/1989,35 ans,189 cm,90 kgs,Cesson-Rennes,
 Belco Ayeva,Arrière Gauche,France,08/03/2005,19 ans,195 cm,85 kgs,Créteil,
 Arthur Vigneron,Ailier Droit,France,30/01/1995,29 ans,182 cm,76 kgs,Saint-Raphaël,
-Sylvain Hochet,Ailier Gauche,France,24/11/1987,37 ans,186 cm,89 kgs,Cesson-Rennes,2023 / 2024
 Auguste Longerinas,Ailier Gauche,France,03/04/2003,21 ans,188 cm,72 kgs,Ivry,
+Sylvain Hochet,Ailier Gauche,France,24/11/1987,37 ans,186 cm,89 kgs,Cesson-Rennes,2023 / 2024
 Lucas De La Breteche,Demi Centre,France,19/11/2001,23 ans,193 cm,85 kgs,Nantes,
 Edson Imare,Arrière Gauche,France,09/09/1998,26 ans,187 cm,84 kgs,Créteil,2023 / 2024
 Théo Laguillaumie,Ailier Droit,France,04/11/1993,31 ans,184 cm,81 kgs,Angers,
-Martial CaÏs,Ailier Droit,France,07/03/2002,22 ans,193 cm,84 kgs,Saint-Raphaël,
 Andrea Parisini,Pivot,Italie,18/11/1994,30 ans,193 cm,110 kgs,Aix,
+Martial CaÏs,Ailier Droit,France,07/03/2002,22 ans,193 cm,84 kgs,Saint-Raphaël,
 Rok Ovnicek,Demi Centre,Slovénie,29/01/1995,29 ans,183 cm,88 kgs,Nantes,
 Jérémy Toto,Pivot,France,15/05/1992,32 ans,197 cm,106 kgs,Nantes,2023 / 2024
 Mohamed Mamdouh,Pivot,Égypte,01/04/1989,35 ans,193 cm,100 kgs,Saran,2023 / 2024
@@ -249,24 +249,20 @@ Henri Kirtz,Arrière Droit,France,27/05/2004,20 ans,198 cm,94 kgs,Ivry,
 Amaury Perrin,Ailier Gauche,France,21/10/2002,22 ans,183 cm,68 kgs,Chambéry,2023 / 2024
 Maxime Gilbert,Demi Centre,France,22/05/1991,33 ans,187 cm,90 kgs,Toulouse,
 Basile Pietre,Demi Centre,France,09/12/2003,20 ans,180 cm,75 kgs,Saran,
-Alexandre Tritta,Arrière Droit,France,09/12/1994,29 ans,187 cm,97 kgs,Aix,
-Yoro Diarra,Pivot,France,29/12/2003,20 ans,197 cm,100 kgs,Saran,
 Pierre-alexis Favril,Ailier Gauche,France,15/10/2004,20 ans,186 cm,84 kgs,Nantes,
 Ilija Abutovic,Arrière Gauche,Serbie,02/08/1988,36 ans,202 cm,105 kgs,Chartres,2023 / 2024
+Yoro Diarra,Pivot,France,29/12/2003,20 ans,197 cm,100 kgs,Saran,
 Mathis Goupillon,Demi Centre,France,20/11/2003,21 ans,179 cm,73 kgs,Saint-Raphaël,
 Lucas Ferrandier,Ailier Gauche,France,12/04/1996,28 ans,189 cm,82 kgs,Créteil,
 Timeo Albouy,Ailier Gauche,France,01/11/2003,21 ans,184 cm,79 kgs,Toulouse,
-Salomon Nassequela,Arrière Droit,Congo,15/01/2004,20 ans,183 cm,71 kgs,Nantes,
-Mouhamadou Sidibe,Pivot,France,09/10/2004,20 ans,200 cm,90 kgs,Aix,
 Leni Serre,Arrière Droit,France,08/09/2005,19 ans,185 cm,81 kgs,Limoges,
 Paul Gourdel,Arrière Droit,France,14/04/2004,20 ans,187 cm,65 kgs,Aix,
 Yanis Busselier,Arrière Droit,France,01/08/2002,22 ans,191 cm,90 kgs,Cherbourg,
+Salomon Nassequela,Arrière Droit,Congo,15/01/2004,20 ans,183 cm,71 kgs,Nantes,
+Mouhamadou Sidibe,Pivot,France,09/10/2004,20 ans,200 cm,90 kgs,Aix,
 Quentin Ducoat,Arrière Droit,France,09/04/2004,20 ans,186 cm,100 kgs,Chartres,2023 / 2024
 Lucas Guigon,Arrière Droit,France,18/07/2003,21 ans,197 cm,83 kgs,Montpellier,
 Nelio Indjai,Ailier Gauche,Portugal,03/06/2002,22 ans,181 cm,73 kgs,Dunkerque,2023 / 2024
-Augustin Riehl,Arrière Droit,France,03/07/2004,20 ans,192 cm,89 kgs,Dunkerque,2023 / 2024
-Antoine Baladi,Pivot,France,18/01/2004,20 ans,187 cm,96 kgs,Ivry,
-Victor Grillère,Pivot,France,05/03/2003,21 ans,195 cm,85 kgs,Chartres,2023 / 2024
 Théo Texier,Demi Centre,France,22/11/2003,21 ans,181 cm,75 kgs,Saran,2023 / 2024
 Luca Faivre,Ailier Gauche,France,23/08/2004,20 ans,175 cm,69 kgs,Dijon,2023 / 2024
 Yoann Gibelin,Arrière Gauche,France,26/11/1999,25 ans,198 cm,99 kgs,Nîmes,
@@ -274,35 +270,27 @@ Emilien Peyronnet,Ailier Droit,France,22/04/2004,20 ans,180 cm,70 kgs,Chambéry,
 Raphaël Deleau,Arrière Gauche,France,06/09/2005,19 ans,185 cm,80 kgs,Saran,
 Baptiste Bonnefond,Arrière Gauche,France,22/01/1993,31 ans,193 cm,97 kgs,Nantes,
 Lucas Berchoux,Demi Centre,France,20/02/2003,21 ans,186 cm,85 kgs,Aix,
+Augustin Riehl,Arrière Droit,France,03/07/2004,20 ans,192 cm,89 kgs,Dunkerque,2023 / 2024
+Antoine Baladi,Pivot,France,18/01/2004,20 ans,187 cm,96 kgs,Ivry,
+Victor Grillère,Pivot,France,05/03/2003,21 ans,195 cm,85 kgs,Chartres,2023 / 2024
 Mathias Comte,Arrière Gauche,France,19/06/2005,19 ans,197 cm,100 kgs,Limoges,
 Adrien Dubois,Ailier Gauche,France,21/03/2001,23 ans,182 cm,72 kgs,Nancy,
-Ylan Augustine,Pivot,France,18/08/2004,20 ans,198 cm,98 kgs,Saint-Raphaël,
 liquimoly-starligue/joueurs/matthieu-blaise,,,,,,,,
+Ylan Augustine,Pivot,France,18/08/2004,20 ans,198 cm,98 kgs,Saint-Raphaël,
+Maixent Eveillard,Demi Centre,France,01/02/2005,19 ans,173 cm,69 kgs,Saint-Raphaël,
+Guillaume Sutter,Ailier Gauche,France,16/01/2005,19 ans,188 cm,75 kgs,Saint-Raphaël,
+Léo Fournie,Pivot,France,10/04/2004,20 ans,188 cm,90 kgs,Montpellier,
+Gallian Varlet,Arrière Gauche,France,16/06/2004,20 ans,193 cm,82 kgs,Nîmes,
 Antoine-xavier Armani,Pivot,France,16/08/2003,21 ans,196 cm,107 kgs,Caen,
 Alexandre Birkner,Ailier Gauche,France,19/02/2004,20 ans,174 cm,79 kgs,Limoges,
 Enzo Gesland,Ailier Droit,France,07/03/2004,20 ans,183 cm,75 kgs,Cherbourg,
 Théo Benterki,Ailier Droit,France,20/06/2003,21 ans,185 cm,80 kgs,Cournon,
 Tom Semba,Pivot,France,15/10/2004,20 ans,189 cm,81 kgs,Chartres,2023 / 2024
 Raphaël Neel Heude,Ailier Gauche,France,23/08/2003,21 ans,184 cm,85 kgs,Nancy,
-Maixent Eveillard,Demi Centre,France,01/02/2005,19 ans,173 cm,69 kgs,Saint-Raphaël,
-Guillaume Sutter,Ailier Gauche,France,16/01/2005,19 ans,188 cm,75 kgs,Saint-Raphaël,
-Léo Fournie,Pivot,France,10/04/2004,20 ans,188 cm,90 kgs,Montpellier,
-Gallian Varlet,Arrière Gauche,France,16/06/2004,20 ans,193 cm,82 kgs,Nîmes,
-Lucien Roullet,Demi Centre,France,14/05/2004,20 ans,193 cm,84 kgs,Limoges,
-Dimitri Claude,Arrière Gauche,France,29/08/2005,19 ans,192 cm,80 kgs,Chambéry,
-Martin Guibert,Arrière Droit,France,09/01/2005,19 ans,190 cm,88 kgs,Toulouse,
-Tristan Michel,Arrière Droit,France,16/06/2004,20 ans,194 cm,89 kgs,Cesson-Rennes,
-Gabin Grocaut,Demi Centre,France,18/04/2005,19 ans,180 cm,76 kgs,Dunkerque,2023 / 2024
-Loghan Devoldere,Ailier Gauche,France,04/05/2004,20 ans,176 cm,77 kgs,Créteil,
-Moussa Traore,Ailier Droit,France,15/04/2005,19 ans,182 cm,78 kgs,Chartres,
-Yann Six,Pivot,France,10/02/2005,19 ans,185 cm,83 kgs,Dunkerque,
-Enzo Gorgibus,Ailier Gauche,France,26/06/2006,18 ans,192 cm,78 kgs,Saint-Raphaël,
-Nahel Nol,Arrière Gauche,France,22/06/2003,21 ans,192 cm,92 kgs,Ivry,
-Ganael Vincent,Pivot,France,17/09/2005,19 ans,180 cm,70 kgs,Nîmes,
 Maxime Discamps,Arrière Gauche,France,03/07/2003,21 ans,203 cm,98 kgs,Toulouse,2023 / 2024
 Thibaut Bonidan,Pivot,France,23/03/2004,20 ans,192 cm,95 kgs,Nîmes,2023 / 2024
-Lazar Maksovic,Arrière Gauche,France,24/11/2004,20 ans,195 cm,89 kgs,Saint-Raphaël,
 Amine Ben Salem,Demi Centre,France,11/03/2003,21 ans,190 cm,85 kgs,Chartres,
+Lazar Maksovic,Arrière Gauche,France,24/11/2004,20 ans,195 cm,89 kgs,Saint-Raphaël,
 Tom Delrives,Ailier Droit,France,22/07/2002,22 ans,188 cm,78 kgs,Frontignan,
 Marko Milosavljevic,Arrière Gauche,Serbie,13/09/1998,26 ans,201 cm,96 kgs,Nantes,
 Ronan Hassler,Ailier Droit,France,14/05/2004,20 ans,185 cm,71 kgs,Limoges,
@@ -312,15 +300,16 @@ Clément Pellen,Arrière Gauche,France,21/04/2002,22 ans,202 cm,89 kgs,Ivry,
 Edgar Gohier,Ailier Droit,France,29/06/2005,19 ans,183 cm,77 kgs,Nantes,
 Edynio Linere,Arrière Gauche,France,21/08/2003,21 ans,191 cm,84 kgs,Massy,
 Andre Wenkegheu Tchambou,Pivot,France,10/05/2004,20 ans,197 cm,95 kgs,Nantes,
-Matéo Caille,Pivot,France,27/06/2004,20 ans,198 cm,96 kgs,Montpellier,
 Edgar Bourillon,Pivot,France,01/04/2004,20 ans,200 cm,95 kgs,Pontault,
-Doran Engueleguele,Arrière Gauche,France,10/05/2003,21 ans,193 cm,97 kgs,Cournon,
+Matéo Caille,Pivot,France,27/06/2004,20 ans,198 cm,96 kgs,Montpellier,
 Sasha Frattaruolo,Pivot,France,19/05/2005,19 ans,188 cm,88 kgs,Chambéry,
+Doran Engueleguele,Arrière Gauche,France,10/05/2003,21 ans,193 cm,97 kgs,Cournon,
+Gabin Miny,Pivot,France,13/07/2005,19 ans,190 cm,95 kgs,Dijon,2023 / 2024
 Mathis Sebin,Arrière Gauche,France,23/10/2004,20 ans,190 cm,81 kgs,Créteil,
 Mike Benjamin,Arrière Gauche,France,05/12/2003,21 ans,198 cm,98 kgs,Cesson-Rennes,2023 / 2024
-Gabin Miny,Pivot,France,13/07/2005,19 ans,190 cm,95 kgs,Dijon,2023 / 2024
 Adam Gnago,Arrière Gauche,France,03/01/2003,21 ans,193 cm,90 kgs,Caen,
 Koussay Ben Fraj,Arrière Gauche,Tunisie,02/09/2004,20 ans,194 cm,90 kgs,Chartres,
-liquimoly-starligue/joueurs/idris-firmesse,,,,,,,,
 Yanis Abdebreiman,Arrière Gauche,France,02/08/2005,19 ans,186 cm,78 kgs,Chambéry,
 Goran Levavasseur,Ailier Gauche,France,03/12/2003,21 ans,184 cm,70 kgs,Valence,
+liquimoly-starligue/joueurs/idris-firmesse,,,,,,,,
+Lucien Roullet,Demi Centre,France,14/05/2004,20 ans,193 cm,84 kgs,Limoges,
