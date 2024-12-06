@@ -1,5 +1,5 @@
 En cours :
--Scrapping (presque fini)
+-Scrapping (FINI)
 
 A faire :
 - Nettoyage données (renommage variables, gérer les données manquantes, enlever unités, légendes des tables, création nouvelles tables avec seulement les variables intéressantes)
