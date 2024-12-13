@@ -1,28 +1,56 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
 
-# Partie à adapter !!!
-data = pd.read_csv("/Donnees_physique_joueurs.csv", index_col=0)
+ 
+###Nettoyage des données 
 
-# Renommer les colonnes pour la compatibilité
-noms_colonnes = ["Poste", "Nationalité", "Date de naissance",
+from Fonctions_scrapping import telechargement_DF
+
+def rename_columns(data):
+"""
+Renommer les colonnes avec les noms choisis
+"""  
+    noms_colonnes = ["Poste", "Nationalité", "Date de naissance",
                  "Âge", "Taille", "Poids", "Club actuel", "Dernière saison"]
-data.columns = noms_colonnes
+    data.columns = noms_colonnes
 
-# Supprimer les unités et changer de type
-data["Âge"] = data["Âge"].str.replace(r" ans", "", regex=True).astype(float)
-data["Taille"] = data["Taille"].str.replace(r" cm", "", regex=True).astype(float)
-data["Poids"] = data["Poids"].str.replace(r" kgs", "", regex=True).astype(float)
+def changement_type_unites(data,type='float'):
+"""
+Enlever les unités et changer le type des données vers un type choisi dans le second argument de la fonction
+"""  
+    data["Âge"] = data["Âge"].str.replace(r" ans", "", regex=True).astype(type)
+    data["Taille"] = data["Taille"].str.replace(r" cm", "", regex=True).astype(type)
+    data["Poids"] = data["Poids"].str.replace(r" kgs", "", regex=True).astype(type)
 
-# Supprimer les 2 joueurs sur lesquels pas de données
-data = data.dropna(subset=['Poste', 'Taille', 'Poids'])
+def suppression_lignes_vides(data):
+"""
+Enlever les lignes pour lesquelles on n'a pas de données sur les variables d'intérêt
+"""  
+    new_data = data.dropna(subset=['Poste', 'Taille', 'Poids'])
+    return new_data
 
-# Création de tables différentes selon les postes
-data_pivot = data[data['Poste'] == 'Pivot']
-data_arriere = data[data['Poste'].isin(['Arrière Droit', 'Arrière Gauche'])]
-data_centre = data[data['Poste'] == 'Demi Centre']
-data_ailier = data[data['Poste'].isin(['Ailier Droit', 'Ailier Gauche'])]
+def ajout_postes_regroupes(data):
+"""
+Ajouter une colonne en regroupant les postes en 4 catégories 
+""" 
+    postes_regroupes = {"Arrière Droit" : "Arrière",
+           "Arrière Gauche" : "Arrière",
+           "Ailier Droit" : "Ailier",
+           "Ailier Gauche" : "Ailier"}
+    
+    data["Poste simplifié"]= data["Poste"].replace(postes_regroupes)
+
+def cleaning(data,nom_fichier):
+"""
+Fonction finale qui compile tout le nettoyage des données
+"""  
+    rename_columns(data)
+    changement_type_unites(data)
+    ajout_postes_regroupes(data)
+    new_data = suppression_lignes_vides(data)
+    telechargement_DF(new_data,nom_fichier)
+
 
 # Initialiser le modèle de régression linéaire
 model = LinearRegression()
@@ -55,3 +83,8 @@ plt.title("Relation entre Taille et Poids selon le Poste avec régression")
 plt.legend(loc="best", fontsize=10)
 plt.grid(True)
 plt.show()
+
+
+
+
+
