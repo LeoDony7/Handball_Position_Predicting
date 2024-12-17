@@ -1,11 +1,11 @@
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
-
+import seaborn as sns
  
 ###Nettoyage des données 
 
-from Fonctions_scrapping import telechargement_DF
+"from Fonctions_scrapping import telechargement_DF"
 
 def rename_columns(data):
 """
@@ -30,7 +30,7 @@ Enlever les lignes pour lesquelles on n'a pas de données sur les variables d'in
     new_data = data.dropna(subset=['Poste', 'Taille', 'Poids'])
     return new_data
 
-def ajout_postes_regroupes(data):
+def ajout_postes_regroupes_IMC(data):
 """
 Ajouter une colonne en regroupant les postes en 4 catégories 
 """ 
@@ -40,6 +40,9 @@ Ajouter une colonne en regroupant les postes en 4 catégories
            "Ailier Gauche" : "Ailier"}
     
     data["Poste simplifié"]= data["Poste"].replace(postes_regroupes)
+    
+    data["IMC"] = data["Poids"] / ((data["Taille"]/100) ** 2)
+
 
 def cleaning(data,nom_fichier):
 """
@@ -51,40 +54,106 @@ Fonction finale qui compile tout le nettoyage des données
     new_data = suppression_lignes_vides(data)
     telechargement_DF(new_data,nom_fichier)
 
+def afficher_regression_par_poste(data):
+"""
+Afficher les points et les droites de régression linéaire pour chaque poste simplifié.
+"""
+    model = LinearRegression()  
+    couleurs = sns.color_palette("husl", len(data["Poste simplifié"].unique()))
 
-# Initialiser le modèle de régression linéaire
-model = LinearRegression()
+    for i, poste in enumerate(data["Poste simplifié"].unique()):
+        subset = data[data["Poste simplifié"] == poste]
 
-# Fonction pour afficher les points et une droite de régression
-def afficher_regression_et_points(dataset, color, label):
+        X = subset['Taille'].values.reshape(-1, 1)  # Format requis pour LinearRegression
+        y = subset['Poids'].values
+     
+        model.fit(X, y)
+        y_pred = model.predict(X)
 
-    X = dataset['Taille'].values.reshape(-1, 1)  # 2D requis pour LinearRegression
-    y = dataset['Poids'].values
+        plt.scatter(subset['Taille'], subset['Poids'], color=couleurs[i], label=poste)
+        plt.plot(subset['Taille'], y_pred, color=couleurs[i], linestyle='--')
 
-    model.fit(X, y)
-    y_pred = model.predict(X)
+    plt.xlabel("Taille (cm)")
+    plt.ylabel("Poids (kg)")
+    plt.title("Relation entre Taille et Poids selon le Poste avec régression")
+    plt.legend(loc="best")
+    plt.grid(True)
 
-    plt.scatter(dataset['Taille'], dataset['Poids'], color=color, label=label)
-    plt.plot(dataset['Taille'], y_pred, color=color, linestyle='--', label=f"Régression ({label})")
 
-# Créer le graphique
+### Exemple d'utilisation du pipeline complet
+# Chargement des données brutes
+data = pd.read_csv("Donnees_physique_joueurs.csv", index_col=0)
+
+# Nettoyage des données
+data_cleaned = cleaning(data, "Donnees_physique_nettoyees.csv")
+
+# Création du graphique final
 plt.figure(figsize=(10, 6))
-
-# Ajouter les points et les droites pour chaque groupe
-afficher_regression_et_points(data_pivot, 'red', 'Pivot')
-afficher_regression_et_points(data_arriere, 'blue', 'Arrière')
-afficher_regression_et_points(data_centre, 'green', 'Centre')
-afficher_regression_et_points(data_ailier, 'orange', 'Ailier')
-
-# Ajouter des labels et une légende
-plt.xlabel("Taille (cm)")
-plt.ylabel("Poids (kg)")
-plt.title("Relation entre Taille et Poids selon le Poste avec régression")
-plt.legend(loc="best", fontsize=10)
-plt.grid(True)
+afficher_regression_par_poste(data_cleaned)
+plt.show()
 plt.show()
 
 
+### Violin Plot, un genre de boite à moustache améliorée
+
+def afficher_violinplot(data, y, palette="viridis"):
+    """
+    Affiche un Violin Plot pour une variable donnée en fonction des postes simplifiés.
+    
+    Paramètres :
+    - data : DataFrame contenant les données.
+    - y : str, nom de la colonne à afficher sur l'axe des ordonnées.
+    - palette : str, palette de couleurs pour le graphique.
+    """
+
+    sns.violinplot(x="Poste simplifié", y=y, data=data, palette=palette)
+    plt.show()
+
+### Droite de régression basique entre 2 variables
+def nuage_droite(data, x, y):
+    """
+    Affiche un nuage de points avec une droite de régression entre deux variables.
+    
+    Paramètres :
+    - data : DataFrame contenant les données.
+    - x : str, nom de la colonne à afficher sur l'axe des abscisses.
+    - y : str, nom de la colonne à afficher sur l'axe des ordonnées.
+    """
+    
+    sns.regplot(x=x, y=y, data=data)
+    plt.title(f"Nuage de points avec droite de tendance : {x} vs {y}")
+    plt.show()
+
+# Exemple : 
+# nuage_droite(data, x="Âge", y="IMC")
+
+
+
+### Nuage de points interactif
+
+import plotly.express as px
+
+def scatter_plot(data, x, y, hover_data):
+    """
+    Crée un graphique de dispersion avec Plotly, avec des informations supplémentaires en survol.
+    
+    Paramètres :
+    - data : DataFrame contenant les données à visualiser.
+    - x : str, nom de la colonne pour l'axe des abscisses.
+    - y : str, nom de la colonne pour l'axe des ordonnées.
+    - hover_data : list, colonnes à afficher lors du survol des points.
+    """
+
+    data_copy = data.copy()
+    # Travail avec une copie pour pas modifier l'index du tableau original
+    data_copy = data_copy.reset_index()
+    data_copy = data_copy.rename(columns={'index': 'Nom'}) 
+
+    fig = px.scatter(data_copy, x=x, y=y, color="Poste", hover_data=hover_data)
+    fig.show()
+
+# Exemple : 
+# scatter_plot(data, x="Taille", y="Poids", color="Poste", hover_data=["Nom", "Âge", "IMC"])
 
 
 
