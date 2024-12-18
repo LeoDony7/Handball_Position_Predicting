@@ -47,12 +47,14 @@ Ajouter une colonne en regroupant les postes en 4 catégories
 def cleaning(data,nom_fichier):
 """
 Fonction finale qui compile tout le nettoyage des données
+A MODIFIER Pour choisir entre return ou télécharger les nouvelles données
 """  
     rename_columns(data)
     changement_type_unites(data)
     ajout_postes_regroupes(data)
     new_data = suppression_lignes_vides(data)
-    telechargement_DF(new_data,nom_fichier)
+    #telechargement_DF(new_data,nom_fichier)
+    return new_data
 
 def afficher_regression_par_poste(data):
 """
