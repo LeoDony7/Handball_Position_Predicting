@@ -1,4 +1,9 @@
-# Handball_Position_Predeciting
+Prédiction des postes des joueurs de Handball et analyse de leurs performances
 
-/!\ Il y a que 315 joueurs sur 325 dans les bases de données, je viens de voir que j'avais de nouveau eu le problème dont j'avais parlé à Jame
-On peut continuer avec ces données ou bien je peux réessayer d'avoir les 325 joueurs si vous préférez
+Description du projet:
+
+Le but de ce projet est d'essayer de prédire le poste des joueurs de handball à partir de leur poids et de leur taille, puis à partir des prédictions réalisées, d'analyser les performances des joueurs dont le poste prédit ne correspond pas au poste réel.
+
+Pour mener à bien ce porjet nous avons utilisé des données issues du site de la LNH (Ligue Nationale de Handball).
+
+
