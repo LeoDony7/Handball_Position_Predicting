@@ -1,14 +1,12 @@
-## Stats descriptives 
-
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+## Stats descriptives 
 
-data = pd.read_csv("Donnees\Donnees_physiques_nettoyees.csv",index_col=0)
+## /!\ Enlever les appels des fonctions pour les mettre dans un autre fichier
 
-
-## Visualisation de la repartition de la taille et du poids des joueurs
+# Visualisation de la répartition de la taille et du poids des joueurs
 
 def Visualisation_Taille_Poids(data_set,moyenne=False,telechargement=None):
 
@@ -39,8 +37,8 @@ def Visualisation_Taille_Poids(data_set,moyenne=False,telechargement=None):
 
     if moyenne:
         # Ajout de lignes verticales et horizontales pour visualiser la moyenne du poids et de la taille dans les données
-        plt.axhline(y=data['Poids'].mean(), color='black', linestyle="--",label='Poids moyen',linewidth=2)
-        plt.axvline(x=data['Taille'].mean(), color='black', linestyle="--",label='Taille moyenne',linewidth=2)
+        plt.axhline(y=data_set['Poids'].mean(), color='black', linestyle="--",label='Poids moyen',linewidth=2)
+        plt.axvline(x=data_set['Taille'].mean(), color='black', linestyle="--",label='Taille moyenne',linewidth=2)
     
     plt.title("Visualisation de la distribution de la taille et du poids des joueurs", fontsize=14)
     plt.xlabel("Taille (cm)", fontsize=12)
@@ -53,11 +51,14 @@ def Visualisation_Taille_Poids(data_set,moyenne=False,telechargement=None):
     
     plt.show()
 
+
 # Appel de la fonction
+data = pd.read_csv("Donnees\Donnees_physiques_nettoyees.csv",index_col=0)
 Visualisation_Taille_Poids(data,moyenne=True,telechargement="Graph_taille_poste_moyenne_1.png")
 
 
-## Récupération de la moyenne et de la variance de la taille et du poids selon le poste
+
+# Récupération de la moyenne et de la variance de la taille et du poids selon le poste
 
 def Moyenne_et_Std(data_set):
     
