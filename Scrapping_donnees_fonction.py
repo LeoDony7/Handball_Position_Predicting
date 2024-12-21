@@ -1,8 +1,6 @@
 from selenium import webdriver
-# from bs4 import BeautifulSoup
 import time
 import pandas as pd
-# import os
 from Fonctions_scrapping import *
 
 
@@ -21,10 +19,10 @@ def Scrapping(nom_df_match: str, nom_df_physique: str):
     dico_match = dict()
     dico_physique = dict()
 
-    # Labels pour le DataFrame data_physique
+    # Labels pour le DataFrame qui contiendra les données des joueurs
     label_physique = []
 
-    # Compteur pour suivre la naviguation entre les pages
+    # Compteur pour suivre la navigation entre les pages
     next_page = 2
 
     # Ouvrir la page
@@ -36,11 +34,11 @@ def Scrapping(nom_df_match: str, nom_df_physique: str):
         # Temps d'attente pour s'assurer que la page est bien chargée avant de commencer le scrapping
         time.sleep(2)
 
-        # Si première page, on récupère le nom des colonnes pour le DataFrame data_match
+        # Si première page, on récupère le nom des colonnes pour le DataFrame des données de matchs
         if next_page ==2:
             label_match = nom_colonnes(driver)
 
-        # Scrapping des données de la page (données de match puis données des joueurs de la page)
+        # Scrapping des données de la page (données de matchs puis données des joueurs de la page)
         Scrap_page_match(driver, dico_match)
         Scrap_tableau_joueur(driver,dico_physique,label_physique)
 
