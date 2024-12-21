@@ -5,8 +5,8 @@ Description du projet:
 Le but de ce projet est d'essayer de prédire le poste des joueurs de handball à partir de leur poids et de leur taille, puis à partir des prédictions réalisées, d'analyser les performances des joueurs dont le poste prédit ne correspond pas au poste réel.
 Précisons ici que le handball se joue avec 1 gardien et 6 joueurs de champ, sépartis en 4 postes : pivot, aillier (gauche et droit), arrière (gauche et droit) et demi-centre.
 
-Pour mener à bien ce porjet nous avons utilisé des données issues du site de la LNH (Ligue Nationale de Handball). La récupération de ces données a été faite par scrapping. 
-Les données disponibles sur le site concernent les joueurs de la LNH inscrit dans un club de la ligue pour la saison 2024/2025. 
+Pour mener à bien ce projet nous avons utilisé des données issues du site de la LNH (Ligue Nationale de Handball). La récupération de ces données a été faite par scrapping. 
+Les données disponibles sur le site concernent les joueurs de la LNH inscrit dans un club de la ligue pour la saison 2023/2024. 
 Parmi les informations auxquelles nous avons accédé, deux mesures nous intéressent particulièrement, le poids et la taille du joueur, ainsi que l'information sur le poste du joueur.
 
 A l'issue d'une travail de nettoyage et de présentation des données recueillies, une analyse descriptive s'est imposée pour comprendre la structure des données et s'assurer de l'intérêt de notre intuition initiale. 
