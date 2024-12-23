@@ -28,4 +28,14 @@ def Prediction(data):
     data['Poste prédit'] = cross_val_predict(pipeline, X, y, cv=5)
 
 
+### test de la fonction
 
+from Nettoyage import cleaning
+
+donnees_brutes = pd.read_csv("Donnees_physique_joueurs.csv",index_col=0)
+
+donnees_nettoyees = cleaning(donnees_brutes)
+
+Prediction(donnees_nettoyees)
+
+print(donnees_nettoyees.head())
