@@ -3,11 +3,13 @@ from sklearn.model_selection import cross_val_predict
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 
+from Fonctions_scrapping import telechargement_DF
+
 # Modèles retenus
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 
-def Prediction(data):
+def Prediction(data,telechargement=None):
 
     '''
     Cette fonction ajoute une colonne au dataframe avec le poste prédit pour chaque joueur.
@@ -26,6 +28,11 @@ def Prediction(data):
 
     # Prédiction
     data['Poste prédit'] = cross_val_predict(pipeline, X, y, cv=5)
+
+    # Téléchargement du DataFrame si voulu
+    if telechargement:
+        telechargement_DF(data,telechargement)
+
 
 
 ### test de la fonction
