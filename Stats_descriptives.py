@@ -5,8 +5,6 @@ import seaborn as sns
  
 ###Nettoyage des données 
 
-"from Fonctions_scrapping import telechargement_DF"
-
 def rename_columns(data):
 """
 Renommer les colonnes avec les noms choisis
@@ -25,14 +23,16 @@ Enlever les unités et changer le type des données vers un type choisi dans le 
 
 def suppression_lignes_vides(data):
 """
-Enlever les lignes pour lesquelles on n'a pas de données sur les variables d'intérêt
+Enlever les lignes pour lesquelles on n'a pas de données sur les variables d'intérêt.
+Cela ne concerne presque aucune ligne de notre DataFrame mais la précaution s'impose. 
 """  
     new_data = data.dropna(subset=['Poste', 'Taille', 'Poids'])
     return new_data
 
 def ajout_postes_regroupes_IMC(data):
 """
-Ajouter une colonne en regroupant les postes en 4 catégories 
+Ajouter une colonne en regroupant les postes en 4 catégories.
+Ajout d'une colonne pour une nouvelle variable IMC.
 """ 
     postes_regroupes = {"Arrière Droit" : "Arrière",
            "Arrière Gauche" : "Arrière",
@@ -44,21 +44,23 @@ Ajouter une colonne en regroupant les postes en 4 catégories
     data["IMC"] = data["Poids"] / ((data["Taille"]/100) ** 2)
 
 
-def cleaning(data,nom_fichier):
+def cleaning(data):
 """
-Fonction finale qui compile tout le nettoyage des données
-A MODIFIER Pour choisir entre return ou télécharger les nouvelles données
+Fonction qui compile tout le nettoyage des données
+Elle retourne un nouveau DataFrame netoyé.
 """  
     rename_columns(data)
     changement_type_unites(data)
     ajout_postes_regroupes(data)
     new_data = suppression_lignes_vides(data)
-    #telechargement_DF(new_data,nom_fichier)
     return new_data
+
+
 
 def afficher_regression_par_poste(data):
 """
 Afficher les points et les droites de régression linéaire pour chaque poste simplifié.
+La fonction prend pour argument le DataFrame. Il faut donc s'assurer que les variables sont dans un format exploitable.
 """
     model = LinearRegression()  
     couleurs = sns.color_palette("husl", len(data["Poste simplifié"].unique()))
@@ -81,8 +83,9 @@ Afficher les points et les droites de régression linéaire pour chaque poste si
     plt.legend(loc="best")
     plt.grid(True)
 
+"""
+Exemple d'utilisation du pipeline complet
 
-### Exemple d'utilisation du pipeline complet
 # Chargement des données brutes
 data = pd.read_csv("Donnees_physique_joueurs.csv", index_col=0)
 
@@ -94,18 +97,15 @@ plt.figure(figsize=(10, 6))
 afficher_regression_par_poste(data_cleaned)
 plt.show()
 plt.show()
-
+"""
 
 ### Violin Plot, un genre de boite à moustache améliorée
 
 def afficher_violinplot(data, y, palette="viridis"):
     """
     Affiche un Violin Plot pour une variable donnée en fonction des postes simplifiés.
-    
-    Paramètres :
-    - data : DataFrame contenant les données.
-    - y : str, nom de la colonne à afficher sur l'axe des ordonnées.
-    - palette : str, palette de couleurs pour le graphique.
+    Elle prend pour paramètres un DataFrame, une variable d'intérêt (str) à choisit entre le poids, la taille ou l'IMC par exemple. 
+    La palette initiale est "viridis" et nous conseillons la palette "plasma" qui est dans le même style. 
     """
 
     sns.violinplot(x="Poste simplifié", y=y, data=data, palette=palette)
@@ -115,20 +115,15 @@ def afficher_violinplot(data, y, palette="viridis"):
 def nuage_droite(data, x, y):
     """
     Affiche un nuage de points avec une droite de régression entre deux variables.
+    Elle prend pour paramètres un DataFrame et deux variables d'intérêt (str).
     
-    Paramètres :
-    - data : DataFrame contenant les données.
-    - x : str, nom de la colonne à afficher sur l'axe des abscisses.
-    - y : str, nom de la colonne à afficher sur l'axe des ordonnées.
+    Exemple d'usage :
+    nuage_droite(data, "Âge", "IMC")
     """
     
     sns.regplot(x=x, y=y, data=data)
     plt.title(f"Nuage de points avec droite de tendance : {x} vs {y}")
     plt.show()
-
-# Exemple : 
-# nuage_droite(data, x="Âge", y="IMC")
-
 
 
 ### Nuage de points interactif
@@ -138,12 +133,10 @@ import plotly.express as px
 def scatter_plot(data, x, y, hover_data):
     """
     Crée un graphique de dispersion avec Plotly, avec des informations supplémentaires en survol.
+    La partie hover_data doit être une liste de noms de colonnes que l'on souhaite afficher en survolant les poids du nuage. 
     
-    Paramètres :
-    - data : DataFrame contenant les données à visualiser.
-    - x : str, nom de la colonne pour l'axe des abscisses.
-    - y : str, nom de la colonne pour l'axe des ordonnées.
-    - hover_data : list, colonnes à afficher lors du survol des points.
+    Exemple d'usage : 
+    scatter_plot(data, "Taille","Poids", ["Nom", "Âge", "IMC"])    
     """
 
     data_copy = data.copy()
@@ -153,9 +146,6 @@ def scatter_plot(data, x, y, hover_data):
 
     fig = px.scatter(data_copy, x=x, y=y, color="Poste", hover_data=hover_data)
     fig.show()
-
-# Exemple : 
-# scatter_plot(data, x="Taille", y="Poids", color="Poste", hover_data=["Nom", "Âge", "IMC"])
 
 
 
