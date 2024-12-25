@@ -35,4 +35,14 @@ def Prediction(data,telechargement=None):
 
 
 
+### test de la fonction
 
+from Nettoyage import cleaning
+
+donnees_brutes = pd.read_csv("Donnees_physique_joueurs.csv",index_col=0)
+
+donnees_nettoyees = cleaning(donnees_brutes)
+
+Prediction(donnees_nettoyees)
+
+print(donnees_nettoyees.head())
