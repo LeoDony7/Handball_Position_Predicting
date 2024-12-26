@@ -51,11 +51,11 @@ def Visualisation_Taille_Poids(data_set,moyenne=False,telechargement=None):
     
     plt.show()
 
-
+'''
 # Appel de la fonction
 data = pd.read_csv("Donnees\Donnees_physiques_nettoyees.csv",index_col=0)
 Visualisation_Taille_Poids(data,moyenne=True,telechargement="Graph_taille_poste_moyenne_1.png")
-
+'''
 
 
 # Récupération de la moyenne et de la variance de la taille et du poids selon le poste
@@ -69,18 +69,19 @@ def Moyenne_et_Std(data_set):
 
     dictionnaire_moyenne_std={}
     for poste in data_set['Poste simplifié'].unique():
-        dictionnaire_moyenne_std[poste]=[data[data['Poste simplifié']==poste]['Taille'].mean(),
-                                         data[data['Poste simplifié']==poste]['Taille'].std(),
-                                         data[data['Poste simplifié']==poste]['Poids'].mean(),
-                                         data[data['Poste simplifié']==poste]['Poids'].std()]
+        dictionnaire_moyenne_std[poste]=[data_set[data_set['Poste simplifié']==poste]['Taille'].mean(),
+                                         data_set[data_set['Poste simplifié']==poste]['Taille'].std(),
+                                         data_set[data_set['Poste simplifié']==poste]['Poids'].mean(),
+                                         data_set[data_set['Poste simplifié']==poste]['Poids'].std()]
         
     df_moyenne_std = pd.DataFrame.from_dict(dictionnaire_moyenne_std,orient='index')
     df_moyenne_std.columns=['Taille Moyenne','Taille Std','Poids Moyenne','Poids Std']
     return df_moyenne_std
 
+'''
 # Appel de la fonction
 print(Moyenne_et_Std(data))
-
+'''
 
 ## Graphique boite à moustache de la taille et du poids selon le poste
 
@@ -118,10 +119,11 @@ def Boxplot_poids(data,telechargement=None):
 
     plt.show()
 
+'''
 # Appel des fonctions
 Boxplot_taille(data)
 Boxplot_poids(data)
-
+'''
 
 ## Ajout des fonctions faites par Jame dans le fichier du nettoyage
 
@@ -205,6 +207,9 @@ def nuage_droite(data, x, y):
 # Nuage de points interactif
 
 import plotly.express as px
+import nbformat
+
+
 
 def scatter_plot(data, x, y, hover_data):
 
