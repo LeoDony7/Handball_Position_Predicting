@@ -79,13 +79,15 @@ def parametres_SVM(data,metrique='accuracy'):
     param_grid = {'C': [0.1, 1, 10, 100],
                   'gamma': ['scale', 0.01, 0.1, 1, 10]
                   }
-    grid = GridSearchCV(SVC(kernel='rbf'), param_grid, scoring=metrique, refit=False, verbose=0, cv=5)
+    grid = GridSearchCV(SVC(kernel='rbf'), param_grid, scoring=metrique, refit=False, verbose=2, cv=5)
     grid.fit(X_train, y_train)
 
     # Afficher les meilleurs paramètres
     return grid.best_params_
 
+'''
 data = pd.read_csv("Donnees\Donnees_physiques_nettoyees.csv")
+'''
 
 '''
 print(parametres_SVM(data,metrique='f1_macro')) # resultat {'C': 1, 'gamma': 10}
