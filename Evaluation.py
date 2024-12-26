@@ -50,9 +50,10 @@ def Eval_modele_KNN(data,k):
 
     #return classification_report(y_test, y_pred)
 
+'''
 data = pd.read_csv("Donnees\Donnees_physiques_nettoyees.csv")
 Eval_modele_KNN(data,5)
-
+'''
 
 def Eval_modele_SVM(data,parametres : dict):
 
@@ -85,9 +86,10 @@ def Eval_modele_SVM(data,parametres : dict):
     plt.ylabel("Vérités")
     plt.show()
 
+'''
 best_param_SVM={'kernel': 'rbf','C': 1, 'gamma': 10}
 Eval_modele_SVM(data,best_param_SVM)
-
+'''
 
 def Eval_modele_Random_Forest(data,parametres : dict):
     
@@ -119,6 +121,7 @@ def Eval_modele_Random_Forest(data,parametres : dict):
     plt.ylabel("Vérités")
     plt.show()
 
+'''
 best_param_RF = {'max_depth': 10, 'min_samples_leaf': 2, 'min_samples_split': 10, 'n_estimators': 50}
-
 Eval_modele_Random_Forest(data,best_param_RF)
+'''
