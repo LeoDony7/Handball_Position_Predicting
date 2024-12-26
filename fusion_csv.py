@@ -108,11 +108,19 @@ def jointure_df(dataframe1,dataframe2,telechargement = None):
 
         if telechargement:
             telechargement_DF(donnees_combinees,telechargement)
-        else:
-            return donnees_combinees
+        
+        return donnees_combinees
     else:
         raise ValueError("La colonne 'Nom formate' n'appartient pas au DataFrame, jointure impossible")
 
+'''
+DF_joueur_rapport_predit = pd.read_csv("DF_joueur_rapport_predit.csv",index_col=0)
+DF_match_rapport_nettoye = pd.read_csv("DF_match_rapport_nettoye.csv",index_col=0)
+
+DF_joint_rapport = jointure_df(DF_joueur_rapport_predit,DF_match_rapport_nettoye,telechargement="DF_joint_rapport.csv")
+
+print(DF_joint_rapport.head(10))
+'''
 
 ## Version Léo
 
