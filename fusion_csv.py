@@ -162,7 +162,7 @@ def jointure_df(dataframe1,dataframe2,telechargement = None):
     Cette fonction permet d'effectuer la jointure entre nos 2 DataFrames.
     La jointure s'effectue sur le nom des joueurs, en utilisant le format Prénom Nom.
     '''
-    if 'Nom formate' in dataframe2.columns():
+    if 'Nom formate' in dataframe2.columns:
         donnees_combinees = pd.merge(dataframe1,dataframe2,left_index= True, right_on='Nom formate', how='inner')
         donnees_combinees.set_index('Nom formate', inplace=True)
 
