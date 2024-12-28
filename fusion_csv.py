@@ -75,6 +75,15 @@ def traitement_pourcentages(dataframe):
                 # Ajouter la colonne avec les nouvelles valeurs
                 dataframe.insert(col_index + i, nouveau_nom, pd.to_numeric(nouvelles_valeurs[i], errors='coerce'))
 
+    
+    temps_jeu=dataframe["Temps jeu"].str.split(":")
+    temps_jeu_heures=temps_jeu.str[0].astype(float)
+    temps_jeu_min=temps_jeu.str[1].astype(float)
+    temps_jeu_sec=temps_jeu.str[2].astype(float)
+
+    temps_jeu=temps_jeu_heures*60+temps_jeu_min+temps_jeu_sec/60
+
+    dataframe["Minutes jouées"]=temps_jeu.round(2)
 
 # Fonction qui gère toutes les étapes de traitement d'un coup
 
