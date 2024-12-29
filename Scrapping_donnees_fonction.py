@@ -7,9 +7,16 @@ from Fonctions_scrapping import *
 def Scrapping(nom_df_match: str, nom_df_physique: str):
 
     '''
-    Cette fonction réalise le scrapping dans son intégralité, en utilisant les fonctions du fichier "Fonctions_scrapping.py".
-    La fonction scrappe les données, les regroupe dans 2 DataFrames distincts, puis télécharge ces 2 DataFrames au format csv dans le repertoire actuel.
-    Elle prend donc en argument le nom que vous voulez donner aux fichiers, au format "nom_fichier.csv"
+    Réalise la récupération des données dans son intégralité, en utilisant les fonctions du fichier "Fonctions_scrapping.py".
+
+    Paramètres : 
+        - nom_df_match : Une chaine de caractères de la forme "nom_df_match.csv". Nom qu'on souhaite donner au fichier contenant les données de match.
+        - nom_df_physique : Une chaine de caractères de la forme "nom_df_physique.csv". Nom qu'on souhaite donner au fichier contenant les données des joueurs.
+
+    Etapes réalisées :
+        - Scrapping des données
+        - Création des 2 DataFrames
+        - Téléchargement des 2 DataFrames au format CSV
     '''
 
     # Configuration du navigateur

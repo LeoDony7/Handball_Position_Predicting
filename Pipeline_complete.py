@@ -2,7 +2,7 @@ from Scrapping_donnees_fonction import *
 
 # /!\ Modifier le nom des fichiers quand on aura déplacé les fonctions
 # et ne pas tout importer, seulement les trucs utiles
-from Stats_descriptives import *
+from Handball_Position_Predicting.Brouillons.Stats_descriptives import *
 
 from Choix_modele import *
 from Evaluation import *
