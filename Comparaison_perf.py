@@ -9,6 +9,9 @@
 
 # Essayer de comprendre si les différences sont dues à une erreur de prédiction ou au fait qu'un joueur joue au "mauvais" poste
 
+import pandas as pd
+import numpy as np
+
 def indicateur_performance(data):
     """
     Ajoute un indicateur de performance basé sur la formule :
@@ -16,9 +19,9 @@ def indicateur_performance(data):
     """
 
     # Calcul de l'indicateur
-    data['Indicateur de performance'] = (data['Total buts'] * data['%total'] / data['Minutes jouées'])
+    data['Indicateur de performance'] = (data['Total buts'] * (1 + data['%total numerique']/100) / np.maximum(data['Minutes jouées'],1))
 
-    return data
+    # return data
 
 def moyenne_perf_poste(data):
     """

@@ -1,6 +1,7 @@
 ## Traitement et Nettoyage du DataFrame contenant les données de matchs
 
 import pandas as pd
+import numpy as np
 from Fonctions_scrapping import telechargement_DF
 
 
@@ -91,7 +92,19 @@ def traitement_temps_jeu(dataframe):
     # Conversion en minutes
     temps_jeu = temps_jeu_heures*60+temps_jeu_min+temps_jeu_sec/60
 
-    dataframe["Minutes jouées"]=temps_jeu.round(2)
+    dataframe["Minutes jouées"] = temps_jeu.round(2)
+    dataframe["Minutes jouées"] = dataframe["Minutes jouées"].fillna(0)
+
+
+def traitement_float(dataframe):
+    
+    '''
+    Met au format float les données nécéssaires
+    '''
+
+    # Pourcentage de tirs réussis
+    dataframe['%total numerique']= (dataframe['Total buts'] *100 / np.maximum(dataframe['Total tirs'],1)).round(2)
+
 
 
 # Fonction qui gère toutes les étapes de traitement d'un coup
@@ -105,6 +118,7 @@ def traitement(dataframe,nom_fichier= None):
     nom_formate(dataframe)
     traitement_pourcentages(dataframe)
     traitement_temps_jeu(dataframe)
+    traitement_float(dataframe)
 
     if nom_fichier:
         telechargement_DF(dataframe,nom_fichier)
