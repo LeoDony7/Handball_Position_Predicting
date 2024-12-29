@@ -98,6 +98,7 @@ def traitement_comparaison(dataframe,nom_fichier=None):
 
     '''
     Effectue le traitement des données en vue de la comparaison des performances.
+    Télécharge ou renvoie le DataFrame traité.
     
     Paramètres : 
         - dataframe : Un DataFrame pandas. On utilisera toujours le Dataframe joint issu des 2 DataFrames nettoyés.
@@ -116,6 +117,8 @@ def traitement_comparaison(dataframe,nom_fichier=None):
     # téléchargement (optionnel)
     if nom_fichier:
         telechargement_DF(dataframe,nom_fichier)
+    else:
+        return dataframe
 
 
 

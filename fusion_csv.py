@@ -10,7 +10,10 @@ from Fonctions_scrapping import telechargement_DF
 def normalisation(nom_joueur):
 
     '''
-    Cette fonction permet de normaliser l'écriture du nom d'un joueur, passant de NOM Prénom à Prénom Nom.
+    Normalise le nom d'un joueur au format Prénom Nom.
+
+    Paramètres :
+        - nom_joueur : chaine de caractère de la forme "NOM Prénom". Le nom et le prénom peuvent éventuellement faire plusieurs mots.
     '''
 
     mots = nom_joueur.split()
@@ -35,7 +38,10 @@ def normalisation(nom_joueur):
 def nom_formate(dataframe):
 
     '''
-    Cette fonction permet d'ajouter au DataFrame une colonne avec les noms au format Prénom Nom.
+    Ajoute à un DataFrame une colonne contenant les noms formatés selon la fonction normalisation.
+
+    Paramètres : 
+        - dataframe : Un DataFrame pandas. On utilisera toujours un DataFrame dans lequel l'index est le nom des joueurs.
     '''
 
     dataframe['Nom formate'] = dataframe.index.map(normalisation)
@@ -46,10 +52,11 @@ def nom_formate(dataframe):
 def traitement_pourcentages(dataframe):
 
     '''
-    Cette fonction permet de nettoyer les données du DataFrame sur les matchs.
-    Certaines colonnes ont des valeurs de la 'forme nombre tirs réussis / nombres tirs tentés'.
-    On souhaite alors remplacer de telles colonnes par deux colonnes, contenant les valeurs numériques associées.
-    La fonction modifie seulement le DataFrame, elle ne renvoie rien.
+    Ajoute les colonnes A et B à un DataFrame contenant des colonnes de type A/B.
+    Permet également de faire passer les données de ces colonnes de chaine de caractères à nombre réel.
+
+    Paramètres :
+        - dataframe : Un DataFrame pandas. On utilisera toujours un DataFrame contenant les données de match.
     '''
 
     # Colonnes à traiter et leurs nouveaux noms
@@ -80,7 +87,10 @@ def traitement_pourcentages(dataframe):
 def traitement_temps_jeu(dataframe):
 
     '''
-    Rajoute une colonne au DataFrame dans laquelle le temps de jeu est au format numérique et en minutes.
+    Ajoute à un DataFrame une colonne contenant le temps de jeu, en minutes et sous la forme d'un nombre réel.
+
+    Paramètres :
+        - dataframe : Un DataFrame pandas. On utilisera toujours un DataFrame contenant le temps de jeu au format "hh:mm:ss"
     ''' 
 
     # Récupération du temps de jeu
@@ -99,7 +109,10 @@ def traitement_temps_jeu(dataframe):
 def traitement_float(dataframe):
     
     '''
-    Met au format float les données nécéssaires
+    Ajoute à un DataFrame une colonne contenant le pourcentage de tirs réussis sous forme d'un nombre réel.
+
+    Paramètres :
+        - dataframe : Un DataFrame pandas. On utilisera toujours un DataFrame traité par la fonction traitement_pourcentages.
     '''
 
     # Pourcentage de tirs réussis
@@ -112,7 +125,12 @@ def traitement_float(dataframe):
 def traitement(dataframe,nom_fichier= None):
 
     '''
-    Cette fonction réalise toutes les étapes du traitement du DataFrame des données de matchs.
+    Effectue le nettoyage des données d'un DataFrame contenant les données de match.
+    Télécharge ou renvoie le DataFrame nettoyé.
+
+    Paramètres :
+        - dataframe : Un DataFrame pandas. On utilisera toujours un DataFrame contenant les données de match.
+        - nom_fichier (optionnel): chaine de caractères de la forme "nom_fichier.csv". Si renseigné, télécharge le DataFrame traité au format csv sous le nom renseigné.
     '''
 
     nom_formate(dataframe)
@@ -129,33 +147,33 @@ def traitement(dataframe,nom_fichier= None):
 
 # Fonction qui permet de faire la jointure entre 2 DataFrames
 
-def jointure_df(dataframe1,dataframe2,telechargement = None):
+def jointure_df(dataframe1,dataframe2,nom_fichier = None):
 
     '''
-    Cette fonction permet d'effectuer la jointure entre nos 2 DataFrames.
-    La jointure s'effectue sur le nom des joueurs, en utilisant le format Prénom Nom.
+    Crée un DataFrame en joignant les 2 DataFrames passés en argument.
+    La jointure s'effectue sur le nom des joueurs, au format Prénom Nom.
+    
+    Paramètres :
+        - dataframe1 : Un DataFrame pandas ayant pour index le nom des joueurs au format Prénom Nom
+        - datafraem2 : Un DataFrame pandas. On l'utilisera toujours sur un DataFrame ayant une colonne 'Nom formate'.
+        - nom_fichier (optionnel): chaine de caractères de la forme "nom_fichier.csv". Si renseigné, télécharge le DataFrame crée au format csv sous le nom renseigné.
+
     '''
+
     if 'Nom formate' in dataframe2.columns:
         donnees_combinees = pd.merge(dataframe1,dataframe2,left_index= True, right_on='Nom formate', how='inner')
         donnees_combinees.set_index('Nom formate', inplace=True)
 
-        if telechargement:
-            telechargement_DF(donnees_combinees,telechargement)
+        if nom_fichier:
+            telechargement_DF(donnees_combinees,nom_fichier)
         
         return donnees_combinees
     else:
         raise ValueError("La colonne 'Nom formate' n'appartient pas au DataFrame, jointure impossible")
 
-'''
-DF_joueur_rapport_predit = pd.read_csv("DF_joueur_rapport_predit.csv",index_col=0)
-DF_match_rapport_nettoye = pd.read_csv("DF_match_rapport_nettoye.csv",index_col=0)
 
-DF_joint_rapport = jointure_df(DF_joueur_rapport_predit,DF_match_rapport_nettoye,telechargement="DF_joint_rapport.csv")
 
-print(DF_joint_rapport.head(10))
-'''
-
-## Version Cyrille 
+## Version Cyrille (la version ci-dessus en est une amélioration)
 '''
 # Fonctions pour normaliser les noms de manière cohérente (inverser Prénom Nom en NOM PRENOM)
 def normaliser_nom(nom):
