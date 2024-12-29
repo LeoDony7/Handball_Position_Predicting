@@ -1,3 +1,5 @@
+## Ne pas lancer ce fichier
+
 from Scrapping_donnees_fonction import *
 
 # /!\ Modifier le nom des fichiers quand on aura déplacé les fonctions

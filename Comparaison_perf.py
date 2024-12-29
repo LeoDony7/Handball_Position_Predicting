@@ -34,18 +34,21 @@ def indicateur_performance(dataframe):
 # Création d'un DF avec la moyenne de l'indicateur de performance pour les joueurs jouant à ce poste et ceux prédits à ce poste
 # (selon mon idée seulement pour les joueurs jouant à ce poste)
 
-def moyenne_perf_poste(dataframe, colonne):
+def moyenne_perf_poste(dataframe, nom_colonne):
 
     '''
     Crée un DataFrame donnant la moyenne de l'indicateur de performance pour chaque poste.
     Ce Dataframe sera utilisé dans la fonction comparaison_performance.
 
     Paramètres :
-        - dataframe : Un DataFrame pandas. On utilisera toujours un DataFrame contenant la colonne 'Poste prédit'.
+        - dataframe : Un DataFrame pandas. On utilisera toujours un DataFrame contenant la colonne 'Poste prédit' et 'Poste simplifié'.
+        - nom_colonne : Une chaine de caractères. Nom à donner à la colonne du DataFrame crée.
     '''
 
     moyennes_vrai_poste = dataframe.groupby("Poste simplifié")["Indicateur de performance"].mean()
-    moyennes.columns = ['argument_nom_colonne']
+    moyennes_vrai_poste.columns = [nom_colonne]
+
+    return moyennes_vrai_poste
     
 
 
