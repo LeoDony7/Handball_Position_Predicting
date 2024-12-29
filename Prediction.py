@@ -70,8 +70,8 @@ def Rapport_prediction(dataframe):
                 annot=True,
                 cmap='Blues',
                 fmt='d',
-                xticklabels=True,
-                yticklabels=True)
+                xticklabels=['Ailier','Arriere','Demi-centre','Pivot'],
+                yticklabels=['Ailier','Arriere','Demi-centre','Pivot'])
     plt.title(f'Matrice de confusion après la prédiction \n F1 (macro): {f1_macro:.2f}', fontsize=12)
     plt.xlabel("Prédictions")
     plt.ylabel("Vérités")
