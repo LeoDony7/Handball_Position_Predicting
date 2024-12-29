@@ -1,4 +1,5 @@
-import pandas as pd
+## Evaluation des performances des différents modèles selon les paramètres choisis
+
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, f1_score
@@ -11,19 +12,20 @@ from sklearn.ensemble import RandomForestClassifier
 from Choix_modele import preparation_donnees
 
 
-## On va faire des fonctions qui servent directement à évaluer les performances en utilisant seulement le .predict
+# Evaluation du modèle KNN
 
-## Ensuite on fera une fonction qui prédit effectivement sur l'ensemble du dataset en utilisant .cros_val_predict
-
-def Eval_modele_KNN(data,k):
+def Eval_modele_KNN(dataframe,k):
 
     '''
-    Cette fonction prend en argument un DataFrame et un k.
+    Renvoie la matrice de confusion et le F1-score (macro) liés à la prédiction faite par le modèle KNN paramétré selon le k passé en argument.
 
+    Paramètres :
+        - dataframe : Un DataFrame pandas contenant les données morphologiques des joueurs et leur poste.
+        - k : un entier. Il s'agit du nombre de voisins utilisé comme paramètre pour le modèle KNN utilisé.
     '''
     
     # Préparation des données
-    X_train, X_test, y_train, y_test = preparation_donnees(data)
+    X_train, X_test, y_train, y_test = preparation_donnees(dataframe)
 
     # Entrainement du modèle KNN sur les données d'entrainement
     knn_model = KNeighborsClassifier(n_neighbors=k)
@@ -43,26 +45,26 @@ def Eval_modele_KNN(data,k):
                 xticklabels=knn_model.classes_,
                 yticklabels=knn_model.classes_)
     plt.title(f'Matrice de confusion KNN avec k={k}\n F1 (macro): {f1_macro:.2f}', fontsize=12)
-
     plt.xlabel("Prédictions")
     plt.ylabel("Vérités")
     plt.show()
 
-    #return classification_report(y_test, y_pred)
 
-'''
-data = pd.read_csv("Donnees\Donnees_physiques_nettoyees.csv")
-Eval_modele_KNN(data,5)
-'''
 
-def Eval_modele_SVM(data,parametres : dict):
+# Evaluation du modèle SVM
+
+def Eval_modele_SVM(dataframe,parametres : dict):
 
     '''
-    Cette fonction prend en argument un DataFrame et les paramètres du modèle SVM.
+    Renvoie la matrice de confusion et le F1-score (macro) liés à la prédiction faite par le modèle SVM paramétré selon le dictionnaire de paramètres passé en argument.
+    
+    Paramètres:
+        - dataframe : Un DataFrame pandas contenant les données morphologiques des joueurs et leur poste.
+        - parametres : Un Dictionnaire python contenant à minima les clés suivantes : 'kernel', 'C' et 'gamma'.
     '''
 
     # Préparation des données
-    X_train, X_test, y_train, y_test = preparation_donnees(data)
+    X_train, X_test, y_train, y_test = preparation_donnees(dataframe)
 
     # Entrainement du modèle SVM sur les données d'entrainement 
     svm_model = SVC(kernel=parametres['kernel'], C= parametres['C'], gamma= parametres['gamma'], random_state=42)
@@ -86,15 +88,18 @@ def Eval_modele_SVM(data,parametres : dict):
     plt.ylabel("Vérités")
     plt.show()
 
-'''
-best_param_SVM={'kernel': 'rbf','C': 1, 'gamma': 10}
-Eval_modele_SVM(data,best_param_SVM)
-'''
+
+
+# Evaluation du modèle Random Forest
 
 def Eval_modele_Random_Forest(data,parametres : dict):
     
     '''
+    Renvoie la matrice de confusion et le F1-score (macro) liés à la prédiction faite par le modèle Random Forest paramétré selon le dictionnaire de paramètres passé en argument.
     
+    Paramètres:
+        - dataframe : Un DataFrame pandas contenant les données morphologiques des joueurs et leur poste.
+        - parametres : Un Dictionnaire python contenant à minima les clés suivantes : 'max_depth', 'min_samples_leaf', 'min_samples_split' et 'n_estimators'.
     '''
 
     # Préparation des données
@@ -120,8 +125,3 @@ def Eval_modele_Random_Forest(data,parametres : dict):
     plt.xlabel("Prédictions")
     plt.ylabel("Vérités")
     plt.show()
-
-'''
-best_param_RF = {'max_depth': 10, 'min_samples_leaf': 2, 'min_samples_split': 10, 'n_estimators': 50}
-Eval_modele_Random_Forest(data,best_param_RF)
-'''
