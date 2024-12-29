@@ -34,7 +34,7 @@ def indicateur_performance(dataframe):
 # Création d'un DF avec la moyenne de l'indicateur de performance pour les joueurs jouant à ce poste et ceux prédits à ce poste
 # (selon mon idée seulement pour les joueurs jouant à ce poste)
 
-def moyenne_perf_poste(dataframe):
+def moyenne_perf_poste(dataframe, colonne):
 
     '''
     Crée un DataFrame donnant la moyenne de l'indicateur de performance pour chaque poste.
@@ -45,20 +45,10 @@ def moyenne_perf_poste(dataframe):
     '''
 
     moyennes_vrai_poste = dataframe.groupby("Poste simplifié")["Indicateur de performance"].mean()
-    moyennes_poste_predit = dataframe.groupby("Poste prédit")["Indicateur de performance"].mean()
-
-    moyennes = pd.merge(moyennes_vrai_poste,moyennes_poste_predit,left_index= True, right_index=True, how='inner')
-    moyennes.reset_index()
-    moyennes.columns = ['Perf vrai poste','Perf poste prédit']
-
-    # ma nouvelle idée : (ajouter nouvel argument à la fonction)
-    # le nouvel argument prendrait les valeurs : 'Moyenne performances poste actuel' ou 'Moyenne performances des joueurs du poste prédit'
-    '''
-    moyennes_vrai_poste = dataframe.groupby("Poste simplifié")["Indicateur de performance"].mean()
     moyennes.columns = ['argument_nom_colonne']
-    '''
+    
 
-    return moyennes
+
 
 
 # Ajoute le rapport entre l'indicateur de performance d'un joueur et la moyenne de cet indicateur pour les joueurs jouant à ce poste
@@ -76,20 +66,13 @@ def comparaison_performance(data):
     '''
     
     # Joindre les moyennes au DataFrame original
-    data = data.join(moyenne_perf_poste(data), on='Poste simplifié')
-
-    # Calculer les ratios
-    data['Ratio poste réel'] = data['Indicateur de performance'] / data['Perf vrai poste'] 
-    data['Ratio poste prédit'] = data['Indicateur de performance'] / data['Perf poste prédit'] 
-
-    # ma nouvelle idée :
-    '''
     data = data.join(moyenne_perf_poste(data,'Moyenne perf joueurs au poste actuel'), on='Poste simplifié')
     data = data.join(moyenne_perf_poste(data,'Moyenne perf joueurs au poste prédit'), on='Poste prédit')
     
+    # Calculer les ratios
     data['Ratio poste réel'] = data['Indicateur de performance'] / data['Moyenne perf joueurs au poste actuel'] 
     data['Ratio poste prédit'] = data['Indicateur de performance'] / data['Moyenne perf joueurs au poste prédit'] 
-    '''
+    
 
 
 ## Préparation du DataFrame pour la comparaison 
