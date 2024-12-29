@@ -76,7 +76,7 @@ def ajout_IMC(data):
     Elle rajoute à ce DataFrame une colonne contenant l'IMC.
     '''
 
-    data["IMC"] = data["Poids"] / ((data["Taille"]/100) ** 2)
+    data["IMC"] = data["Poids"] / ((data["Taille"]/100) ** 2).round(1)
 
 
 # Nettoyage de la base de données

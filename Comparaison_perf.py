@@ -9,8 +9,6 @@
 
 # Essayer de comprendre si les différences sont dues à une erreur de prédiction ou au fait qu'un joueur joue au "mauvais" poste
 
-
-
 def indicateur_performance(data):
     """
     Ajoute un indicateur de performance basé sur la formule :
