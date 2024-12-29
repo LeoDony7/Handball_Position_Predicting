@@ -1,3 +1,5 @@
+## Scrapping des données
+
 import pandas as pd
 from bs4 import BeautifulSoup
 import os 
@@ -5,12 +7,16 @@ import time
 
 ## Téléchargement d'un DataFrame en précisant le nom et le chemin de teléchargement (optionnel)
 
-def telechargement_DF(df:pd.DataFrame,nom_fichier,path=None):
+def telechargement_DF(dataframe:pd.DataFrame,nom_fichier,path=None):
 
     '''
-    Cette fonction permet de télécharger un DataFrame au format csv.
-    La fonction prend en argument le DataFrame à télécharger, le nom à donner au fichier (nom_fichier.csv).
-    On peut également renseigner le chemin vers où télécharger le fichier. Si le chemin n'est pas précisé, le fichier est téléchargé dans le repertoire actuel.
+    Télécharge un DataFrame au format .csv selon le nom voulu.
+    On peut également préciser le chemin vers le repertoire dans lequel le fichier sera téléchargé, par défaut le repertoire actuel.
+
+    Paramètres :
+        - dataframe : Un DataFrame pandas qu'on souhaite télécharger.
+        - nom_fichier : Une chaine de caractère de la forme "nom_fichier.csv". Nom qu'on souhaite donner au fichier.
+        - path (optionnel) : Une chaine de caractère définissant le chemin vers le dossier dans lequel le fichier sera téléchargé. Par défaut le répertoire actuel.
     '''
 
     if path is None :
@@ -18,7 +24,7 @@ def telechargement_DF(df:pd.DataFrame,nom_fichier,path=None):
     else:
         chemin = path
     nom_complet = os.path.join(chemin,nom_fichier)
-    df.to_csv(nom_complet,index=True)
+    dataframe.to_csv(nom_complet,index=True)
 
 
 ############### Fonctions pour le scrapping des données de match ###############
@@ -29,10 +35,13 @@ def telechargement_DF(df:pd.DataFrame,nom_fichier,path=None):
 def Scrap_page_match(driver,dictionnaire):
 
     '''
-    La fonction prend un argument un driver et un dictionnaire. 
-    Elle modifie le contenu du dictionnaire en ajoutant les informations scrappées sur la page du driver.
-    Cette fonction sera appliquée au driver qui visite la page de la LNH qui nous intéresse dans ce projet.
-    Le dictionnaire dans lequel on ajoute les informations de la page sera utilisé pour créer le DataFrame de travail.
+    Remplit un dictionnaire avec les données souhaitées de la page visitée.
+    La page visitée sera celle des données de la saison 2023/24 de la LNH (Ligue Nationale de Handball)
+    
+    Paramètres :
+        - driver : Un Webdriver selenium. On utilisera toujours un Webdriver.Chrome()
+        - dictionnaire : Un dictionnaire python. Il sera rempli avec les données de la page visitée afin de créer un DataFrame.
+    
     '''
 
     # Extraire le HTML actuel et le parser avec BeautifulSoup
@@ -58,10 +67,11 @@ def Scrap_page_match(driver,dictionnaire):
 def nom_colonnes(driver):
 
     '''
-    La fonction prend en argument un driver.
-    Elle renvoie une liste contenant les noms des colonnes du tableau présent sur la page visitée par le driver.
-    Cette fonction sera appliquée au driver qui visite la page de la LNH qui nous intéresse dans ce projet.
-    La liste renvoyée par cette fonction a pour vocation de devenir le nom des colonnes du DataFrame contenant les données de cette page.
+    Renvoie le nom des colonnes du tableau de la page de la LNH sous forme d'une liste.
+    Cette fonction va permettre de renommer les colonnes du DataFrame lorsqu'il sera construit.
+    
+    Paramètres :
+        - driver : Un Webdriver selenium. On utilisera toujours un Webdriver.Chrome()
     '''
 
     # Extraire le HTML actuel et le parser avec BeautifulSoup
@@ -80,9 +90,12 @@ def nom_colonnes(driver):
 def page_suivante(driver,next_page):
 
     '''
-    La fonction prend en argument un driver et le numéro de la page suivante.
-    Elle modifie le driver en cliquant sur le bouton permettant d'aller à la page suivante.
-    Cette fonction sera utilisée pour naviguer entre les différentes pages du tableau contenant les statistiques de match.
+    Clique sur le bouton amenant à la page dont le numéro est passé en argument.
+    La fonction sera utilisée pour naviguer entre les différentes pages durant le scrapping.
+
+    Paramètres :
+        - driver : Un Webdriver selenium. On utilisera toujours un Webdriver.Chrome()
+        - next_page : Un entier de [1,7]. Il définit la page vers laquelle on souhaite aller.
     '''
 
     # Balise HTML du bouton permettant de passer à la page suivante
@@ -101,48 +114,50 @@ def page_suivante(driver,next_page):
 
 def Scrap_page_joueur(driver,url,dictionnaire):
         
+    '''
+    Remplit un dictionnaire avec les données de la page correspondant à l'url passé en argument.
+    La page visitée sera celle d'un joueur de la LNH pendant la saison 2023/24.
+
+    Paramètres :
+        - driver : Un Webdriver selenium. On utilisera toujours un Webdriver.Chrome()
+        - url : Une chaine de caractère de la forme "https://www.lnh.fr/liquimoly-starligue/joueurs/prenom-nom". Page du joueur dont on souhaite récupérer les données.
+        - dictionnaire : Un dictionnaire python. Il sera rempli avec les données de la page visitée afin de créer un DataFrame.
+    '''        
+
+    # Extraire le HTML actuel et le parser avec BeautifulSoup
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+
+    # Scrapping de l'élément dans lequel se trouve les informations
+    table = soup.find('div', {'class': 'col-infos'})
+
+    if table:
+
         '''
-        La fonction prend un argument un driver,un url et un dictionnaire. 
-        Elle modifie le contenu du dictionnaire en ajoutant les informations scrappées sur la page du driver.
-        Cette fonction sera appliqué au driver qui visite la page d'un joueur de LNH.
-        L'url passé en argument sera celui de la page du joueur qui nous intéresse.
-        Le dictionnaire dans lequel on ajoute les informations de la page sera utilisé pour créer le DataFrame de travail.
-        '''        
+        Ajout d'une condition pour faire face aux pages de joueurs manquantes.
+        Si la page joueur existe on effectue la suite du scrapping.
+        Dans le cas contraire on ajoute seulement la clé 'url' au dictionnaire, associée à la valeur [].
+        Cela permet d'ajouter une ligne au dataframe même pour les joueurs dont la page est manquante.
+        '''
 
-        # Extraire le HTML actuel et le parser avec BeautifulSoup
-        html = driver.page_source
-        soup = BeautifulSoup(html, 'html.parser')
+        ## Coeur du Scrapping
+        nom_joueur = table.find('h2').text.strip() 
+        poste_joueur = table.find('div',{'class':'position'}).text.strip() 
+        rows = table.find_all('div',{'class':'row-infos'})
 
-        # Scrapping de l'élément dans lequel se trouve les informations
-        table = soup.find('div', {'class': 'col-infos'})
+        # Ajout des données au dictionnaire
+        valeur=[poste_joueur] 
+        # le poste du joueur n'est pas renseigné de la même façon que les autres données donc on l'ajoute à la main avant les autres informations
+        for row in rows:
+            information_brute = row.find('div',{'class' : 'col-value'})
+            if information_brute : 
+                information = information_brute.text.strip()
+                valeur.append(information) 
 
-        if table:
-
-            '''
-            Ajout d'une condition pour faire face aux pages de joueurs manquantes.
-            Si la page joueur existe on effectue la suite du scrapping.
-            Dans le cas contraire on ajoute seulement la clé 'url' au dictionnaire, associée à la valeur [].
-            Cela permet d'ajouter une ligne au dataframe même pour les joueurs dont la page est manquante.
-            '''
-
-            ## Coeur du Scrapping
-            nom_joueur = table.find('h2').text.strip() 
-            poste_joueur = table.find('div',{'class':'position'}).text.strip() 
-            rows = table.find_all('div',{'class':'row-infos'})
-
-            # Ajout des données au dictionnaire
-            valeur=[poste_joueur] 
-            # le poste du joueur n'est pas renseigné de la même façon que les autres données donc on l'ajoute à la main avant les autres informations
-            for row in rows:
-                information_brute = row.find('div',{'class' : 'col-value'})
-                if information_brute : 
-                    information = information_brute.text.strip()
-                    valeur.append(information) 
-
-            dictionnaire[" ".join(nom_joueur.split())] = valeur
+        dictionnaire[" ".join(nom_joueur.split())] = valeur
         
-        else:
-            dictionnaire[url]=[]
+    else:
+        dictionnaire[url]=[]
 
 
 # Récupération du nom des colonnes du tableau des données des joueurs
@@ -150,10 +165,11 @@ def Scrap_page_joueur(driver,url,dictionnaire):
 def entete_infos_joueur(driver):
     
     '''
-    Cette fonction prend en argument un driver.
-    Elle renvoie une liste contenant le nom des colonnes du tableau dans lequel sont les données d'un joueur.
-    Cette fonction sera appliquée au driver qui visite la page d'un joueur (en particulier on l'appliquera sur la page du premier joueur du tableau).
-    La liste renvoyée sera utilisée pour renommer les colonnes du dataframe comprenant les données des joueurs.
+    Renvoie le nom des colonnes du tableau de la page d'un joueur sous forme d'une liste.
+    Cette fonction va permettre de renommer les colonnes du DataFrame lorsqu'il sera construit.
+    
+    Paramètres :
+        - driver : Un Webdriver selenium. On utilisera toujours un Webdriver.Chrome()
     '''
 
     # Extraire le HTML actuel et le parser avec BeautifulSoup
@@ -186,10 +202,10 @@ def entete_infos_joueur(driver):
 def Scrap_url_page(driver):
 
     '''
-    La fonction prend en argument un driver.
-    Elle renvoie une liste de liens vers des pages internet.
-    Cette fonction sera utilisée sur le driver qui visite la page de la LNH qui nous intéresse.
-    La liste d'url renvoyé sera utilisée pour aller sur la page de chaque joueur afin d'en scrapper les informations.
+    Renvoie une liste contenant les urls des pages de joueurs disponibles depuis la page visitée.
+    La liste d'url servira à récupérer les données des joueurs.
+    Paramètres :
+        - driver : Un Webdriver selenium. On utilisera toujours un Webdriver.Chrome()
     '''
 
     # Extraire le HTML actuel et le parser avec BeautifulSoup
@@ -209,10 +225,12 @@ def Scrap_url_page(driver):
 def page_joueur(driver,url):
 
     '''
-    Cette fonction prend un driver et un url en argument.
-    Elle emmène le driver sur la page correspondante à l'url en cliquant sur l'élément amenant à cette page.
-    La fonction sera appliquée à la page de la LNH qui nous intéresse.
-    Elle sera utilisée pour nous amener sur la page d'un joueur dont on souhaite récupérer les données.
+    Clique sur l'élément qui renvoie vers la page dont l'url est passé en argument.
+    Cette fonction va permettre d'aller sur les pages des joueurs dont on souhaite récupérer les données.
+
+    Paramètres :
+        - driver : Un Webdriver selenium. On utilisera toujours un Webdriver.Chrome()
+        - url : Une chaine de caractère de la forme "https://www.lnh.fr/liquimoly-starligue/joueurs/prenom-nom". Page du joueur dont on souhaite récupérer les données.
     '''
 
     # On cherche le lien qui nous amène à la page du joueur depuis la page des stats de match
@@ -231,11 +249,14 @@ def page_joueur(driver,url):
 def Scrap_tableau_joueur(driver,dictionnaire,liste_labels):
 
     '''
-    Cette fonction prend en argument un driver, un dictionnaire et une liste.
-    Elle modifie le dictionnaire en le remplissant avec les données des pages des joueurs présents sur la page.
-    La fonction récupère également le nom des colonnes de la table contenant les données et les ajoute à la liste.
-    La fonction sera appliquée à la page de la LNH qui nous intéresse.
-    Le dictionnaire et la liste de labels finaux seront utilisés pour construire un dataframe de travail.
+    Remplit un dictionnaire avec les données des pages des joueurs accessibles depuis la page visitée.
+    Remplit également une liste avec le nom des colonnes du tableau de la page d'un joueur.
+    Cette fonction se base sur les fonctions 'Scrap_page_joueur', 'entete_infos_joueur', 'Scrap_url_page' et 'page_joueur'.
+
+    Paramètres :
+        - driver : Un Webdriver selenium. On utilisera toujours un Webdriver.Chrome()
+        - dictionnaire : Un dictionnaire python. Il sera rempli avec les données de la page visitée afin de créer un DataFrame.
+        - liste_labels : Une liste python. Elle sera remplie avec le nom des colonnes du tableau de la page d'un joueur.   
     '''
 
     # Récupération de la liste des url vers les pages joueurs de la page
