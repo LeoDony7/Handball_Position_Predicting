@@ -79,5 +79,32 @@ Nous utilisons dans cette partie le second DataFrame que nous avons obtenu depui
 
 Nous joignons les deux DataFrames grace au Nom et au Prénom des joueurs afin notamment de lier le poste du joueur à ses performances en match. Notre objectif dans cette dernière partie est d'interroger les performances des joueurs selon leur poste en comparant entre le poste d'origine et le poste prédit par nos modèles.
 
+## Comparaison performance selon le poste prédit
 
+Pour prolonger notre analyse et chercher à interpréter les erreurs de prédiction des modèles, nous cherchons à comparer les performances de joueurs avec les performances moyennes de leur poste réel et du poste auquel nous les avons prédits.
+
+L'objectif est de savoir si un joueur qui n'a pas été correctement prédit par les modèles l'a été du fait d'une erreur de classification ou bien du fait que son poste de jeu réel ne correspond pas à ses caractéristiques physiques. 
+
+##### Choix de l'indicateur
+Pour cela, nous formons un indicateur agrégé de performance qui combine différentes mesures données par la table des performances de match. Un premier indicateur que nous avons tenté est celui d'une rapport simple entre le nombre de buts inscrits multiplié par 1+ l'efficacité au tir et divisé par le temps de jeu. Cet indicateur reflète bien la capacité d'un joueur a exploiter les situations de but par rapport au temps qu'il passe sur le terrain. 
+
+À l'aide de cet indicateur, nous étudions deux quantités :
+- le ratio entre son score et la moyenne du score des joueurs jouant au même poste
+- le ratio entre son score et la moyenne du score des joueurs jouant au poste auquel le modèle le prédit
+    
+Si son score est proche de la moyenne de son poste prédit, on peut estimer que les caractéristiques physiques du joueur correspondent légitimement à un autre poste que celui auquel il évolue actuellement.
+
+## Analyse des résultats
+Notre intuition se révèle peu vérifiée. 
+En effet, la comparaison entre les performances du joueur et celle de son poste réel donne un ratio en moyenne plus proche de 1 que lorsqu'on le compare avec le poste prédit par le modèle. 
+
+![Luc Steins neutralise](Images/lucsteins.jpg)
+
+# Conclusion
+A l'issue de cette analyse, nous pouvons répondre à plusieurs des questions que nous nous étions posées. 
+
+D'abord, il semble bien que les différents postes du handball correspondent à des profils morphologiques différents. En effet, nous avons été en mesure de prédire correctement le poste de nombreux joueurs seulement à l'aide de leur poids et de leur taille. On peut en particulier remarquer les ailiers, les arrières et les pivots sont des postes largement plus déterminés par des variables physiques que le poste de demi-centre, pour lequel une grande diversité de physique convient. 
+
+De plus, l'analyse des performances permet de conclure que les joueurs qui ont été mal prédit sont en moyenne légèrement moins efficace que la moyenne de leur poste. Néanmoins, le poste auquel le modèle les assigne ne correspond pas plus aux performances du joueur en question. 
+Ainsi on peut considérer que les erreurs de prédiction de notre modèle sont *légitimes* dans le sens où le physique du joueur n'est pas parfaitement approprié pour avoir des performances équivalentes à celle de son poste réel. 
 
