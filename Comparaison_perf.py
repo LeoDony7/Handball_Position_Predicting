@@ -101,13 +101,13 @@ def traitement_comparaison(dataframe,nom_fichier=None):
     '''
 
     indicateur_performance(dataframe)
-    comparaison_performance(dataframe)
+    dataframe_comparaison=comparaison_performance(dataframe)
 
     # téléchargement (optionnel)
     if nom_fichier:
-        telechargement_DF(dataframe,nom_fichier)
+        telechargement_DF(dataframe_comparaison,nom_fichier)
     else:
-        return dataframe
+        return dataframe_comparaison
 
 
 
@@ -126,7 +126,7 @@ def comparaison(dataframe,nom_fichier=None):
     
     joueurs_filtrés = dataframe[dataframe['Poste simplifié'] != dataframe['Poste prédit']]
 
-    colonnes_a_afficher = ['Poste simplifié', 'Poste prédit', 'Perf vrai poste', 'Perf poste prédit','Ratio poste réel', 'Ratio poste prédit']
+    colonnes_a_afficher = ['Poste simplifié', 'Poste prédit','Indicateur de performance' ,'Moyenne perf joueurs au poste actuel', 'Moyenne perf joueurs au poste prédit','Ratio poste réel', 'Ratio poste prédit']
     joueurs_filtrés = joueurs_filtrés[colonnes_a_afficher]
 
     # téléchargement (optionnel)
