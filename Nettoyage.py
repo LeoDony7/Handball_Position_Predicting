@@ -1,62 +1,76 @@
+## Nettoyage des données
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 from Fonctions_scrapping import telechargement_DF
 
-## Nettoyage des données
+
 
 # Renommer les colonnes
 
-def rename_columns(data):
+def rename_columns(dataframe):
     
     '''
-    Cette fonction prend en argument un DataFrame.
-    Elle modifie le nom des colonnes du DataFrame en utilisant la liste à l'intérieur de la fonction.
+    Renomme les colonnes du DataFrame passé en argument.
     Le choix a été fait d'intérioriser la liste des noms, on applique donc cette fonction avant toute autre modification du DataFrame.
+
+    Paramètres : 
+        - dataframe : Le DataFrame pandas contenant les données brutes sur les joueurs.
     '''  
     
     noms_colonnes = ["Poste", "Nationalité", "Date de naissance",
                      "Âge", "Taille", "Poids", "Club actuel", "Dernière saison"]
-    data.columns = noms_colonnes
+    dataframe.columns = noms_colonnes
+
 
 
 # Gestion des unités des grandeurs
 
-def changement_type_unites(data,type='float'):
+def changement_type_unites(dataframe,type='float'):
 
     '''
-    Cette fonction prend en argument un DataFrame et le type vers lequel transformer les données (par défaut float).
-    La fonction permet de supprimer les unités dans les cases du DataFrame et de transformer les chaines de nombres en un format adapté aux calculs.
+    Fait passer les données d'un DataFrame au format numérique (float par défaut).
+    On applique cette fonction seulement sur les colonnes que l'on manipulera par la suite.
+    
+    Paramètres : 
+        - dataframe : Un DataFrame pandas déjà transformé via la fonction rename_columns.
+        -type (optionnel) : une chaine de caractère définissant vers quel type transformer les valeurs. Par défaut, float.
     '''
 
-    data["Âge"] = data["Âge"].str.replace(r" ans", "", regex=True).astype(type)
-    data["Taille"] = data["Taille"].str.replace(r" cm", "", regex=True).astype(type)
-    data["Poids"] = data["Poids"].str.replace(r" kgs", "", regex=True).astype(type)
+    dataframe["Âge"] = dataframe["Âge"].str.replace(r" ans", "", regex=True).astype(type)
+    dataframe["Taille"] = dataframe["Taille"].str.replace(r" cm", "", regex=True).astype(type)
+    dataframe["Poids"] = dataframe["Poids"].str.replace(r" kgs", "", regex=True).astype(type)
+
 
 
 # Suppression des lignes vides
 
-def suppression_lignes_vides(data):
+def suppression_lignes_vides(dataframe):
     
     '''
-    Cette fonction prend en argument un DataFrame.
-    Elle renvoie un nouveau DataFrame qui correspond au DataFrame d'origine vidé des lignes
-    pour lesquelles il nous manque des valeurs pour les variables d'intérêt.
+    Renvoie un nouveau DataFrame dans lequel les lignes pour lesquelles il manque des valeurs pour les variables d'intérêts ont été supprimées.
+    
+    Paramètres :
+        - dataframe : Un DataFrame pandas déjà transformé via la fonction rename_columns.
     '''
  
-    new_data = data.dropna(subset=['Poste', 'Taille', 'Poids'])
-    return new_data
+    new_dataframe = dataframe.dropna(subset=['Poste', 'Taille', 'Poids'])
+    return new_dataframe
+
 
 
 # Ajout d'une colonne avec les postes par catégorie
 
-def ajout_postes_regroupes(data):
+def ajout_postes_regroupes(dataframe):
 
     '''
-    Cette fonction prend en argument un DataFrame.
-    Elle ajoute à ce DataFrame une colonne dans laquelle certains postes sont regroupés.
-    Les arrières gauches et droits seront des arrières et idem pour les ailiers gauches et droits.
+    Ajoute à un DataFrame une colonne codant les postes de manière simplifiée.
+    Les arrières gauches et droits seront seulement des arrières et idem pour les ailiers gauches et droits.
+
+    Paramètres :
+        - dataframe : Un DataFrame pandas déjà transformé via la fonction rename_columns.
     '''
 
     postes_regroupes = {"Arrière Droit" : "Arrière",
@@ -64,37 +78,51 @@ def ajout_postes_regroupes(data):
            "Ailier Droit" : "Ailier",
            "Ailier Gauche" : "Ailier"}
     
-    data["Poste simplifié"]= data["Poste"].replace(postes_regroupes)
-    
+    dataframe["Poste simplifié"]= dataframe["Poste"].replace(postes_regroupes)
+
+
 
 # Ajout d'une colonnne avec l'IMC des joueurs
 
-def ajout_IMC(data):
+def ajout_IMC(dataframe):
 
     '''
-    Cette fonction prend en argument un DataFrame.
-    Elle rajoute à ce DataFrame une colonne contenant l'IMC.
+    Ajoute à un DataFrame une colonne contenant l'IMC des joueurs.
+
+    Paramètres :
+        - dataframe : Un DataFrame pandas déjà transformé via rename_columns.
     '''
 
-    data["IMC"] = data["Poids"] / ((data["Taille"]/100) ** 2).round(1)
+    dataframe["IMC"] = dataframe["Poids"] / ((dataframe["Taille"]/100) ** 2).round(1)
+
 
 
 # Nettoyage de la base de données
 
-def cleaning(data,nom_fichier=None):
+def cleaning(dataframe,nom_fichier=None):
 
     '''
-    Cette fonction prend en argument un DataFrame et un argument optionnel, le nom du fichier.
-    Cette fonction effectue toutes les opérations de nettoyage sur le DataFrame passé en argument.
-    Si le nom du fichier est précisé, la fonction télécharge la base de données au format csv.
-    Sinon, la fonction renvoie le DataFrame nettoyé.
+    Réalise toutes les étapes du nettoyage d'un DataFrame contenant les données des joueurs.
+    Télécharge ou renvoie le DataFrame nettoyé.
+
+    Paramètres :
+        - dataframe : Un DataFrame pandas contenant les données des joueurs.
+        - nom_fichier (optionnel): chaine de caractères de la forme "nom_fichier.csv". Si renseigné, télécharge le DataFrame traité au format csv sous le nom renseigné.
+
+    Etapes réalisées :
+        - Renommer les colonnes
+        - Passer les données au format numérique (float)
+        - Ajouter la colonne avec les postes simplifiés
+        - Ajouter une colonne avec l'IMC des joueurs 
+        - Suppression des lignes vides
+        - Téléchargement ou renvoi du DataFrame nettoyé
     '''
 
-    rename_columns(data)
-    changement_type_unites(data)
-    ajout_postes_regroupes(data)
-    ajout_IMC(data)
-    new_data = suppression_lignes_vides(data)
+    rename_columns(dataframe)
+    changement_type_unites(dataframe)
+    ajout_postes_regroupes(dataframe)
+    ajout_IMC(dataframe)
+    new_data = suppression_lignes_vides(dataframe)
 
     if nom_fichier is None :
         return new_data
